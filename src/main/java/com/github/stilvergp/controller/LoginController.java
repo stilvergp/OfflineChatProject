@@ -48,15 +48,14 @@ public class LoginController extends Controller implements Initializable {
      * @throws IOException if an I/O error occurs.
      */
     public void goToMain() throws IOException {
-        //logica comprobar si usuario existe o no
-
         User user = UserManager.findById(username.getText());
         if (user != null && user.isMyPassword(Security.hashPassword(password.getText()))) {
             login(user);
             App.currentController.changeScene(Scenes.MAIN, null);
         } else {
             Alerts.showErrorAlert("Error de inicio de sesión",
-                    "Usuario o contraseña incorrectos, por favor intente nuevamente");
+                    "Usuario o contraseña incorrectos, " +
+                            "por favor intente nuevamente");
         }
     }
 

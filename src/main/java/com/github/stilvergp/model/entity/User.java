@@ -4,9 +4,11 @@ import com.github.stilvergp.utils.Security;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Objects;
 import java.util.Random;
 
+@XmlType(propOrder = { "id", "name", "username", "password", "email" })
 @XmlRootElement
 public class User {
     private String id;
@@ -15,14 +17,13 @@ public class User {
     private String password;
     private String email;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String name, String username, String password, String email) {
         this.id = generateId();
         this.name = name;
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.email = email;
     }
 

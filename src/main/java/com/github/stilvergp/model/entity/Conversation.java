@@ -3,9 +3,13 @@ package com.github.stilvergp.model.entity;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
+@XmlType(propOrder = { "id", "user1", "user2", "messages"})
 @XmlRootElement
 public class Conversation {
     private String id;
@@ -14,8 +18,15 @@ public class Conversation {
     private List<Message> messages;
     public Conversation() {}
 
-    public Conversation(String id, String user1, String user2, List<Message> messages) {
-        this.id = id;
+    public Conversation(String user1, String user2) {
+        this.id = generateId();
+        this.user1 = user1;
+        this.user2 = user2;
+        this.messages = new ArrayList<>();
+    }
+
+    public Conversation(String user1, String user2, List<Message> messages) {
+        this.id = generateId();
         this.user1 = user1;
         this.user2 = user2;
         this.messages = messages;
@@ -56,6 +67,19 @@ public class Conversation {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    private String generateId() {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
+        StringBuilder id = new StringBuilder(5);
+        Random random = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(caracteres.length());
+            id.append(caracteres.charAt(index));
+        }
+
+        return id.toString();
     }
 
     @Override
