@@ -65,6 +65,8 @@ public class LoginController extends Controller implements Initializable {
      * @throws IOException if an I/O error occurs.
      */
     public void signIn() throws IOException {
+        username.clear();
+        password.clear();
         App.currentController.openModal(Scenes.FORMSIGNIN, "Agregando usuario...", this, null);
     }
 

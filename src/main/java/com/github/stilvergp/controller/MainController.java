@@ -84,6 +84,7 @@ public class MainController extends Controller implements Initializable {
     }
 
     public void reloadConversationsFromXml() {
+        if (chatListView != null) chatListView.getItems().clear();
         List<Conversation> loadedConversations = ConversationManager.loadConversationsForUser(Session.getInstance().getLoggedInUser());
         this.conversations = FXCollections.observableArrayList(loadedConversations);
         String loggedInUsername = Session.getInstance().getLoggedInUser().getUsername();

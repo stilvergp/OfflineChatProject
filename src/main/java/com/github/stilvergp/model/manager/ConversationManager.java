@@ -1,6 +1,7 @@
 package com.github.stilvergp.model.manager;
 
 import com.github.stilvergp.model.entity.Conversation;
+import com.github.stilvergp.model.entity.Message;
 import com.github.stilvergp.model.entity.User;
 import com.github.stilvergp.utils.XMLManager;
 
@@ -8,7 +9,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConversationManager {
     private static final String DIRECTORY_PATH = "conversations/";
@@ -54,4 +57,53 @@ public class ConversationManager {
         }
         return conversations;
     }
+
+    public static Conversation loadConversationByUsers(User user1, User userConversationWith) {
+        Conversation conversation = new Conversation();
+        String userFolderPath = DIRECTORY_PATH + user1.getUsername();
+        File userFolder = new File(userFolderPath);
+        if (userFolder.exists() && userFolder.isDirectory()) {
+            File conversationFile = new File(userFolder + "/conversation-with-" + userConversationWith.getUsername() + ".xml");
+            if (conversationFile.exists()) {
+                try (FileInputStream fis = new FileInputStream(conversationFile)) {
+                    conversation = XMLManager.readXML(new Conversation(), fis);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return conversation;
+    }
+
+    public static int countConversationMessages(User user1, User userConversationWith) {
+        int count = 0;
+        Conversation conversation = loadConversationByUsers(user1, userConversationWith);
+        if (conversation != null) {
+            count = conversation.getMessages().size();
+        }
+        return count;
+    }
+
+    public static String mostRepeatedWordInConversation(User user1, User userConversationWith) {
+        String mostRepeatedWord = "";
+        int maxCount = 0;
+
+        Conversation conversation = loadConversationByUsers(user1, userConversationWith);
+        if (conversation != null) {
+            for (Message message : conversation.getMessages()) {
+                String[] words = message.getText().split(" ");
+                Map<String, Integer> wordCountMap = new HashMap<>();
+                for (String word : words) {
+                    word = word.toLowerCase();
+                    wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);
+                    if (wordCountMap.get(word) > maxCount) {
+                        maxCount = wordCountMap.get(word);
+                        mostRepeatedWord = word;
+                    }
+                }
+            }
+        }
+        return mostRepeatedWord;
+    }
+
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<conversation>
+    <id>CTdLA</id>
+    <user1>usuario</user1>
+    <user2>pablo</user2>
+    <messages>
+        <message>
+            <id>Pg-lm</id>
+            <sender>usuario</sender>
+            <receiver>pablo</receiver>
+            <text>hola</text>
+            <date>2024-10-23T10:07:56.3402387</date>
+        </message>
+    </messages>
+</conversation>

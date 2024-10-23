@@ -5,6 +5,7 @@ import com.github.stilvergp.model.entity.Conversation;
 import com.github.stilvergp.model.entity.User;
 import com.github.stilvergp.model.manager.ConversationManager;
 import com.github.stilvergp.model.manager.UserManager;
+import com.github.stilvergp.utils.Alerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -46,6 +47,8 @@ public class CreateConversationController extends Controller implements Initiali
             controller.reloadConversationsFromXml();
             controller.selectConversationWithUser(selectedUser);
             ((Node) (event.getSource())).getScene().getWindow().hide();
+        } else {
+            Alerts.showErrorAlert("Error al crear nueva conversación", "Debe seleccionar primero un usuario");
         }
     }
 
