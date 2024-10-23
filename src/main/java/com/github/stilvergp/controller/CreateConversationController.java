@@ -46,6 +46,7 @@ public class CreateConversationController extends Controller implements Initiali
             ConversationManager.saveConversation(newConversation);
             controller.reloadConversationsFromXml();
             controller.selectConversationWithUser(selectedUser);
+            Alerts.showInformationAlert("Conversación creada","Conversación creada con éxito");
             ((Node) (event.getSource())).getScene().getWindow().hide();
         } else {
             Alerts.showErrorAlert("Error al crear nueva conversación", "Debe seleccionar primero un usuario");

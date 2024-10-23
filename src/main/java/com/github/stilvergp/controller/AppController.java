@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 public class AppController extends Controller implements Initializable {
 
     @FXML
+    private Menu export;
+
+    @FXML
     private Menu account;
 
     @FXML
@@ -41,7 +44,10 @@ public class AppController extends Controller implements Initializable {
      * @throws IOException if an I/O error occurs.
      */
     public void changeScene(Scenes scene, Object data) throws IOException {
-        if (Session.getInstance().isLoggedIn()) account.setVisible(true);
+        if (Session.getInstance().isLoggedIn()) {
+            account.setVisible(true);
+            export.setVisible(true);
+        }
         View view = loadFXML(scene);
         borderPane.setCenter(view.scene);
         this.centerController = view.controller;
@@ -67,6 +73,10 @@ public class AppController extends Controller implements Initializable {
         stage.setScene(_scene);
         view.controller.onOpen(parent);
         stage.showAndWait();
+    }
+
+    public void exportToTxt() throws IOException{
+        openModal(Scenes.EXPORTTOTXT, "Exportar conversación a txt",this, null);
     }
 
     @Override

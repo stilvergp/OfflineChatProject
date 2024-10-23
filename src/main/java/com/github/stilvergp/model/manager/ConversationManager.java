@@ -52,43 +52,22 @@ public class ConversationManager {
                         e.printStackTrace();
                     }
                 }
-
             }
         }
         return conversations;
     }
 
-    public static Conversation loadConversationByUsers(User user1, User userConversationWith) {
-        Conversation conversation = new Conversation();
-        String userFolderPath = DIRECTORY_PATH + user1.getUsername();
-        File userFolder = new File(userFolderPath);
-        if (userFolder.exists() && userFolder.isDirectory()) {
-            File conversationFile = new File(userFolder + "/conversation-with-" + userConversationWith.getUsername() + ".xml");
-            if (conversationFile.exists()) {
-                try (FileInputStream fis = new FileInputStream(conversationFile)) {
-                    conversation = XMLManager.readXML(new Conversation(), fis);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return conversation;
-    }
-
-    public static int countConversationMessages(User user1, User userConversationWith) {
+    public static int countConversationMessages(Conversation conversation) {
         int count = 0;
-        Conversation conversation = loadConversationByUsers(user1, userConversationWith);
         if (conversation != null) {
             count = conversation.getMessages().size();
         }
         return count;
     }
 
-    public static String mostRepeatedWordInConversation(User user1, User userConversationWith) {
+    public static String mostRepeatedWordInConversation(Conversation conversation) {
         String mostRepeatedWord = "";
         int maxCount = 0;
-
-        Conversation conversation = loadConversationByUsers(user1, userConversationWith);
         if (conversation != null) {
             for (Message message : conversation.getMessages()) {
                 String[] words = message.getText().split(" ");
@@ -104,6 +83,18 @@ public class ConversationManager {
             }
         }
         return mostRepeatedWord;
+    }
+
+    public static int numberOfMessagesFromUser(String username, Conversation conversation) {
+        int count = 0;
+        if (conversation != null) {
+            for (Message message : conversation.getMessages()) {
+                if (message.getSender().equals(username)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }

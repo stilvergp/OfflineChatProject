@@ -1,4 +1,4 @@
-package com.github.stilvergp;
+package com.github.stilvergp.utils;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;

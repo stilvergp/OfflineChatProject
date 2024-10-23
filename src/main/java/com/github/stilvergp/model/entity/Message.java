@@ -1,6 +1,6 @@
 package com.github.stilvergp.model.entity;
 
-import com.github.stilvergp.LocalDateTimeAdapter;
+import com.github.stilvergp.utils.LocalDateTimeAdapter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

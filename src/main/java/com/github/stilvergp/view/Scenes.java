@@ -5,7 +5,8 @@ public enum Scenes {
     MAIN("view/main.fxml"),
     LOGIN("view/login.fxml"),
     FORMSIGNIN("view/formSignIn.fxml"),
-    CREATECONVERSATION("view/createConversation.fxml");
+    CREATECONVERSATION("view/createConversation.fxml"),
+    EXPORTTOTXT("view/exportTxt.fxml");
 
     private String url;
 

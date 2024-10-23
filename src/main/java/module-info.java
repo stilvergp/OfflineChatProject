@@ -17,4 +17,6 @@ module com.github.stilvergp {
     opens com.github.stilvergp.view to javafx.fxml;
     exports com.github.stilvergp.controller;
     opens com.github.stilvergp.controller to javafx.fxml;
+    exports com.github.stilvergp.utils;
+    opens com.github.stilvergp.utils to javafx.fxml;
 }
