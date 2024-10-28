@@ -12,6 +12,7 @@
     <items>
       <VBox>
          <children>
+            <TextField fx:id="searchBox" promptText="Buscar conversación" />
             <Button fx:id="createConversation" mnemonicParsing="false" onAction="#createConversation" prefHeight="25.0" prefWidth="124.0" text="Nueva conversación" />
               <ListView fx:id="chatListView" prefHeight="414.0" prefWidth="147.0" />
          </children>

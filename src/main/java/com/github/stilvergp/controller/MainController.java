@@ -33,6 +33,24 @@ public class MainController extends Controller implements Initializable {
     private VBox chatMessagesVBox;
     @FXML
     private TextField messageTextField;
+    @FXML
+    private TextField searchBox;
+
+    private void searchConversations(String filter) {
+        chatListView.getItems().clear();
+
+        String loggedInUsername = Session.getInstance().getLoggedInUser().getUsername();
+        conversations.stream()
+                .filter(conversation -> {
+                    String otherUser = loggedInUsername.equals(conversation.getUser1()) ? conversation.getUser2() : conversation.getUser1();
+                    return otherUser.toLowerCase().contains(filter.toLowerCase());
+                })
+                .forEach(conversation -> {
+                    String otherUser = loggedInUsername.equals(conversation.getUser1()) ? conversation.getUser2() : conversation.getUser1();
+                    chatListView.getItems().add("Chat con " + otherUser);
+                });
+    }
+
 
     private void loadChatMessages(String chatName) {
         chatMessagesVBox.getChildren().clear();
@@ -146,6 +164,11 @@ public class MainController extends Controller implements Initializable {
         chatListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             if (newValue != null) {
                 loadChatMessages(newValue);
+            }
+        });
+        searchBox.textProperty().addListener((_, _, newValue) -> {
+            if (newValue != null) {
+                searchConversations(newValue);
             }
         });
     }
